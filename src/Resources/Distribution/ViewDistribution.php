@@ -12,13 +12,13 @@ class ViewDistribution extends ApiResource
         $arr = [
             'id'       => $this->id,
             'receiver' => $this->relationValidation('receiver', function () {
-                return $this->receiver->toViewApi();
+                return $this->receiver->toViewApi()->resolve();
             }),
             'sender' => $this->relationValidation('sender', function () {
-                return $this->sender->toViewApi();
+                return $this->sender->toViewApi()->resolve();
             }),
             'transaction' => $this->relationValidation('transaction', function () {
-                return $this->transaction->toViewApi();
+                return $this->transaction->toViewApi()->resolve();
             }),
             'flag' => $this->flag,
             'order_no' => $this->order_no,

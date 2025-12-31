@@ -18,8 +18,8 @@ class Distribution extends PackageManagement implements ContractsDistribution
     protected array $__guard   = [];
     protected array $__add     = [];
     protected string $__entity = 'Distribution';
-    public static $distribution_model;
-    public static $distribution_item_model;
+    public $distribution_model;
+    public $distribution_item_model;
 
     protected array $__resources = [
         'view' => ViewDistribution::class,
@@ -78,7 +78,7 @@ class Distribution extends PackageManagement implements ContractsDistribution
             $distribution->save();
         }
 
-        return static::$distribution_model = $distribution;
+        return $this->distribution_model = $distribution;
     }
 
     public function prepareStoreDistributionItems(mixed $attributes = null): Model
@@ -86,8 +86,8 @@ class Distribution extends PackageManagement implements ContractsDistribution
         $attributes ??= request()->all();
 
         if (!isset($attributes['transaction_id'])) {
-            if (!isset(static::$distribution_model)) {
-                $distribution = static::$distribution_model;
+            if (!isset($this->distribution_model)) {
+                $distribution = $this->distribution_model;
             } else {
                 $id = $attributes['distribution_id'] ?? null;
                 if (!isset($id)) throw new \Exception('No distribution id provided', 422);
@@ -97,7 +97,7 @@ class Distribution extends PackageManagement implements ContractsDistribution
         }
         $distribution_item = $this->schemaContract('card_stock')
             ->prepareStoreCardStock($attributes);
-        return static::$distribution_item_model = $distribution_item;
+        return $this->distribution_item_model = $distribution_item;
     }
 
     public function storeDistribution(): array
@@ -109,7 +109,7 @@ class Distribution extends PackageManagement implements ContractsDistribution
 
     public function getDistribution(): ?Model
     {
-        return static::$distribution_model;
+        return $this->distribution_model;
     }
 
     public function showUsingRelation(): array
@@ -150,7 +150,7 @@ class Distribution extends PackageManagement implements ContractsDistribution
         } else {
             $model->load($this->showUsingRelation());
         }
-        return static::$distribution_model = $model;
+        return $this->distribution_model = $model;
     }
 
     public function showDistribution(?Model $model = null): array

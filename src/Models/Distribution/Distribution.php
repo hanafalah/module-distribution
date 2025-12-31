@@ -75,14 +75,14 @@ class Distribution extends BaseModel
         });
     }
 
-    public function toShowApi()
+    public function getShowResource()
     {
-        return new ShowDistribution($this);
+        return ShowDistribution::class;
     }
 
-    public function toViewApi()
+    public function getViewResource()
     {
-        return new ViewDistribution($this);
+        return ViewDistribution::class;
     }
 
     public function authorSender()

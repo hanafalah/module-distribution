@@ -12,8 +12,8 @@ use Hanafalah\ModuleDistribution\Enums\Distribution\Status;
 class Order extends Distribution implements ContractsOrder
 {
     protected string $__entity = 'Order';
-    public static $order_model;
-    public static $order_item_model;
+    public $order_model;
+    public $order_item_model;
 
     public function prepareStoreOrder(?array $attributes = null): Model
     {
@@ -21,14 +21,14 @@ class Order extends Distribution implements ContractsOrder
         $attributes['flag'] = Flag::ORDER_DISTRIBUTION->value;
 
         $order = parent::prepareStoreDistribution($attributes);
-        return static::$order_model = $order;
+        return $this->order_model = $order;
     }
 
     public function prepareStoreOrderItems(mixed $attributes = null): Model
     {
         $attributes ??= request()->all();
         $order_item = $this->prepareStoreDistributionItems($attributes);
-        return static::$order_item_model = $order_item;
+        return $this->order_item_model = $order_item;
     }
 
     public function storeOrder(): array
@@ -40,7 +40,7 @@ class Order extends Distribution implements ContractsOrder
 
     public function getOrder(): ?Model
     {
-        return static::$order_model;
+        return $this->order_model;
     }
 
     public function prepareShowOrder(?Model $model = null, ?array $attributes = null): Model
@@ -56,7 +56,7 @@ class Order extends Distribution implements ContractsOrder
         } else {
             $model->load($this->showUsingRelation());
         }
-        return static::$order_model = $model;
+        return $this->order_model = $model;
     }
 
     public function showOrder(?Model $model = null): array

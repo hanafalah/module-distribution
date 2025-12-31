@@ -11,14 +11,14 @@ class ShowDistribution extends ViewDistribution
     {
         $arr = [
             'author_receiver' => $this->relationValidation('authorReceiver', function () {
-                return $this->authorReceiver->toViewApi();
+                return $this->authorReceiver->toViewApi()->resolve();
             }),
             'author_sender' => $this->relationValidation('authorSender', function () {
-                return $this->authorSender->toViewApi();
+                return $this->authorSender->toViewApi()->resolve();
             }),
             'card_stocks' => $this->relationValidation('cardStocks', function () {
                 return $this->cardStocks->transform(function ($cardStock) {
-                    return $cardStock->toShowApi();
+                    return $cardStock->toShowApi()->resolve();
                 });
             })
         ];
